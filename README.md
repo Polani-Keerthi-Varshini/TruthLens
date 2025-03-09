@@ -1,7 +1,8 @@
-##TruthLens - AI Fact Checker
+#TruthLens - AI Fact Checker
 ##Overview
 TruthLens is an AI-powered fact-checking tool that helps users verify claims in real-time by leveraging natural language processing (NLP), multi-source cross-verification, and credibility scoring. It aims to combat misinformation by providing transparent, data-backed insights into online content.
-##Core Features
+
+#Core Features
 1. Real-Time Claim Detection & Extraction
 
 Extracts key claims and facts from social media posts, news articles, and online content
@@ -14,8 +15,6 @@ Assigns a credibility score based on:
 Source trustworthiness
 Cross-verification results
 Historical accuracy of the source
-
-
 Displays verified fact-check links, sources, and AI reasoning behind the score
 
 3. Evidence Dashboard
@@ -46,7 +45,7 @@ Prerequisites
 Python 3.x
 Chrome Extension API (if using the browser extension)
 
-##Steps to Run Locally
+#Steps to Run Locally
 
 Clone the repository:
 Copygit clone https://github.com/your-username/TruthLens.git
@@ -58,5 +57,5 @@ Copypip install -r requirements.txt
 Run the application:
 Copypython app.py
 
-##License
+#License
 TruthLens is licensed under the MIT License.

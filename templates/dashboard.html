@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TruthLens - Personal Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🔍 TruthLens</h1>
+            <nav class="main-nav">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/dashboard" class="nav-link">Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container dashboard">
+        <div class="dashboard-header">
+            <h2>Your Fact-Checking History</h2>
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <h3>Total Claims Checked</h3>
+                    <p class="stat-value">{{ stats.total_claims }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Accuracy Rate</h3>
+                    <p class="stat-value">{{ stats.accuracy_rate }}%</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Countries Analyzed</h3>
+                    <p class="stat-value">{{ stats.unique_countries }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <section class="claim-history">
+                <h3>Recent Claims</h3>
+                <div class="claims-list">
+                    {% for claim in claims %}
+                    <div class="claim-card">
+                        <div class="claim-header">
+                            <span class="timestamp">{{ claim.timestamp }}</span>
+                            <span class="risk-level {{ claim.risk_level.lower() }}">{{ claim.risk_level }}</span>
+                        </div>
+                        <p class="claim-text">{{ claim.text }}</p>
+                        <div class="claim-details">
+                            <div class="sources">
+                                <strong>Sources:</strong>
+                                {% for source in claim.sources %}
+                                <span class="source-tag">{{ source }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="location">
+                                <strong>Location:</strong> {{ claim.location }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="analytics">
+                <div class="chart-container">
+                    <h3>Claims Over Time</h3>
+                    <div id="claims-timeline"></div>
+                </div>
+                <div class="chart-container">
+                    <h3>Top Topics</h3>
+                    <div id="topics-chart"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>TruthLens - Fighting Misinformation with AI</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

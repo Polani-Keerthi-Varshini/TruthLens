@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TruthLens Fact Checker</title>
+  <style>
+    :root {
+      --primary-color: #1f77b4;
+      --background-color: #ffffff;
+      --secondary-bg: #f0f2f6;
+      --text-color: #262730;
+      --error-color: #dc3545;
+      --success-color: #28a745;
+      --warning-color: #ffc107;
+    }
+
+    body {
+      width: 350px;
+      padding: 15px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--secondary-bg);
+    }
+
+    .header img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+
+    .header h1 {
+      font-size: 18px;
+      margin: 0;
+      color: var(--primary-color);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid var(--secondary-bg);
+      border-radius: 4px;
+      resize: vertical;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 14px;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #1a5a8e;
+    }
+
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .results {
+      margin-top: 15px;
+      padding: 10px;
+      border: 1px solid var(--secondary-bg);
+      border-radius: 4px;
+      display: none;
+    }
+
+    .score {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin: 10px 0;
+      padding: 10px;
+      background: var(--secondary-bg);
+      border-radius: 4px;
+    }
+
+    .loading {
+      text-align: center;
+      display: none;
+    }
+
+    .spinner {
+      border: 3px solid var(--secondary-bg);
+      border-top: 3px solid var(--primary-color);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      margin: 10px auto;
+    }
+
+    .fact-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .fact-item {
+      padding: 10px;
+      margin-bottom: 10px;
+      background: var(--secondary-bg);
+      border-radius: 4px;
+    }
+
+    .fact-rating {
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 5px;
+    }
+
+    .fact-text {
+      margin-bottom: 5px;
+      line-height: 1.4;
+    }
+
+    .fact-source {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .fact-link {
+      display: inline-block;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .error {
+      color: var(--error-color);
+      background: rgba(220, 53, 69, 0.1);
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="icons/icon48.png" alt="TruthLens">
+    <h1>TruthLens Fact Checker</h1>
+  </div>
+
+  <textarea id="content" placeholder="Enter text to fact-check or select text on any webpage and click the extension icon"></textarea>
+  <button id="check">Check Facts</button>
+
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Analyzing content...</p>
+  </div>
+
+  <div class="results">
+    <div class="score"></div>
+    <div class="details"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TruthLens - AI Fact-Checking Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Add Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🔍 TruthLens</h1>
+            <p>AI-Powered Fact-Checking Platform</p>
+            <nav class="main-nav">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/dashboard" class="nav-link">Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Tutorial containers -->
+        <div id="tutorial-overlay" class="tutorial-overlay"></div>
+        <div id="tutorial-popup" class="tutorial-popup"></div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('fact-check')">Fact Check</button>
+            <button class="tab-btn" onclick="showTab('monitoring')">Social Monitor</button>
+            <button class="tab-btn" onclick="showTab('geo')">Geo Tracking</button>
+        </div>
+
+        <div id="fact-check-tab" class="tab-content active">
+            <section class="input-section">
+                <h2>Submit Content for Analysis</h2>
+                <p class="instruction-text">Enter your claim or statement below to fact-check it against multiple reliable sources.</p>
+                <textarea id="content-input" placeholder="Enter the text you want to fact-check (e.g., 'COVID-19 vaccines contain microchips for tracking people')"></textarea>
+                <button id="analyze-btn" onclick="analyzeContent()">Analyze Content</button>
+            </section>
+
+            <!-- API Configuration Section -->
+            <section class="api-key-section">
+                <h3>API Configuration</h3>
+                <div class="api-status">
+                    <p>Configure your fact-checking API keys here</p>
+                </div>
+            </section>
+
+            <section class="results-section" id="results">
+                <div id="loading" class="hidden">
+                    <div class="spinner"></div>
+                    <p>Analyzing content...</p>
+                </div>
+
+                <div id="analysis-results" class="hidden">
+                    <!-- Results will be populated dynamically -->
+                </div>
+            </section>
+        </div>
+
+        <div id="monitoring-tab" class="tab-content">
+            <section class="monitoring-controls">
+                <h2>Social Media Monitoring</h2>
+                <form onsubmit="addTrackingTerm(event)" class="tracking-form">
+                    <select name="termType" required>
+                        <option value="keyword">Keyword</option>
+                        <option value="hashtag">Hashtag</option>
+                    </select>
+                    <input type="text" name="termValue" placeholder="Enter term to track" required>
+                    <button type="submit">Add Term</button>
+                </form>
+
+                <div id="tracking-list" class="tracking-terms">
+                    <!-- Tracking terms will be displayed here -->
+                </div>
+            </section>
+
+            <section class="monitoring-results">
+                <div class="monitoring-grid">
+                    <div class="social-feed">
+                        <h3>Live Social Feed</h3>
+                        <div id="social-updates" class="updates-container">
+                            <!-- Social media updates will be displayed here -->
+                        </div>
+                    </div>
+                    <div class="trends-panel">
+                        <h3>Trending Analysis</h3>
+                        <div id="social-trends" class="trends-container">
+                            <!-- Trends will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="geo-tab" class="tab-content">
+            <section class="geo-tracking">
+                <h2>Geographical Misinformation Tracking</h2>
+                <div class="country-selector">
+                    <select id="country-select" onchange="updateCountryView()">
+                        <option value="">Global View</option>
+                        <option value="AFG">Afghanistan</option>
+                        <option value="ALB">Albania</option>
+                        <option value="DZA">Algeria</option>
+                        <option value="ARG">Argentina</option>
+                        <option value="AUS">Australia</option>
+                        <option value="AUT">Austria</option>
+                        <option value="BHR">Bahrain</option>
+                        <option value="BGD">Bangladesh</option>
+                        <option value="BEL">Belgium</option>
+                        <option value="BRA">Brazil</option>
+                        <option value="CAN">Canada</option>
+                        <option value="CHN">China</option>
+                        <option value="COL">Colombia</option>
+                        <option value="DNK">Denmark</option>
+                        <option value="EGY">Egypt</option>
+                        <option value="FIN">Finland</option>
+                        <option value="FRA">France</option>
+                        <option value="DEU">Germany</option>
+                        <option value="GRC">Greece</option>
+                        <option value="HKG">Hong Kong</option>
+                        <option value="IND">India</option>
+                        <option value="IDN">Indonesia</option>
+                        <option value="IRN">Iran</option>
+                        <option value="IRL">Ireland</option>
+                        <option value="ISR">Israel</option>
+                        <option value="ITA">Italy</option>
+                        <option value="JPN">Japan</option>
+                        <option value="JOR">Jordan</option>
+                        <option value="KEN">Kenya</option>
+                        <option value="KOR">South Korea</option>
+                        <option value="KWT">Kuwait</option>
+                        <option value="MYS">Malaysia</option>
+                        <option value="MEX">Mexico</option>
+                        <option value="MAR">Morocco</option>
+                        <option value="NLD">Netherlands</option>
+                        <option value="NZL">New Zealand</option>
+                        <option value="NGA">Nigeria</option>
+                        <option value="NOR">Norway</option>
+                        <option value="PAK">Pakistan</option>
+                        <option value="PHL">Philippines</option>
+                        <option value="POL">Poland</option>
+                        <option value="PRT">Portugal</option>
+                        <option value="QAT">Qatar</option>
+                        <option value="RUS">Russia</option>
+                        <option value="SAU">Saudi Arabia</option>
+                        <option value="SGP">Singapore</option>
+                        <option value="ZAF">South Africa</option>
+                        <option value="ESP">Spain</option>
+                        <option value="LKA">Sri Lanka</option>
+                        <option value="SWE">Sweden</option>
+                        <option value="CHE">Switzerland</option>
+                        <option value="TWN">Taiwan</option>
+                        <option value="THA">Thailand</option>
+                        <option value="TUR">Turkey</option>
+                        <option value="ARE">UAE</option>
+                        <option value="GBR">United Kingdom</option>
+                        <option value="USA">United States</option>
+                        <option value="VNM">Vietnam</option>
+                    </select>
+                </div>
+                <div class="geo-grid">
+                    <div class="map-container">
+                        <div id="world-map"></div>
+                    </div>
+                    <div class="trends-panel">
+                        <h3>Regional Analysis</h3>
+                        <div class="country-analysis-selector">
+                            <select id="analysis-country-select" onchange="updateRegionalAnalysis()">
+                                <option value="">Select a country for detailed analysis</option>
+                                <option value="AFG">Afghanistan</option>
+                                <option value="ALB">Albania</option>
+                                <option value="DZA">Algeria</option>
+                                <option value="ARG">Argentina</option>
+                                <option value="AUS">Australia</option>
+                                <option value="AUT">Austria</option>
+                                <option value="BHR">Bahrain</option>
+                                <option value="BGD">Bangladesh</option>
+                                <option value="BEL">Belgium</option>
+                                <option value="BRA">Brazil</option>
+                                <option value="CAN">Canada</option>
+                                <option value="CHN">China</option>
+                                <option value="COL">Colombia</option>
+                                <option value="DNK">Denmark</option>
+                                <option value="EGY">Egypt</option>
+                                <option value="FIN">Finland</option>
+                                <option value="FRA">France</option>
+                                <option value="DEU">Germany</option>
+                                <option value="GRC">Greece</option>
+                                <option value="HKG">Hong Kong</option>
+                                <option value="IND">India</option>
+                                <option value="IDN">Indonesia</option>
+                                <option value="IRN">Iran</option>
+                                <option value="IRL">Ireland</option>
+                                <option value="ISR">Israel</option>
+                                <option value="ITA">Italy</option>
+                                <option value="JPN">Japan</option>
+                                <option value="JOR">Jordan</option>
+                                <option value="KEN">Kenya</option>
+                                <option value="KOR">South Korea</option>
+                                <option value="KWT">Kuwait</option>
+                                <option value="MYS">Malaysia</option>
+                                <option value="MEX">Mexico</option>
+                                <option value="MAR">Morocco</option>
+                                <option value="NLD">Netherlands</option>
+                                <option value="NZL">New Zealand</option>
+                                <option value="NGA">Nigeria</option>
+                                <option value="NOR">Norway</option>
+                                <option value="PAK">Pakistan</option>
+                                <option value="PHL">Philippines</option>
+                                <option value="POL">Poland</option>
+                                <option value="PRT">Portugal</option>
+                                <option value="QAT">Qatar</option>
+                                <option value="RUS">Russia</option>
+                                <option value="SAU">Saudi Arabia</option>
+                                <option value="SGP">Singapore</option>
+                                <option value="ZAF">South Africa</option>
+                                <option value="ESP">Spain</option>
+                                <option value="LKA">Sri Lanka</option>
+                                <option value="SWE">Sweden</option>
+                                <option value="CHE">Switzerland</option>
+                                <option value="TWN">Taiwan</option>
+                                <option value="THA">Thailand</option>
+                                <option value="TUR">Turkey</option>
+                                <option value="ARE">UAE</option>
+                                <option value="GBR">United Kingdom</option>
+                                <option value="USA">United States</option>
+                                <option value="VNM">Vietnam</option>
+                            </select>
+                        </div>
+                        <div id="regional-trends"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>TruthLens - Fighting Misinformation with AI</p>
+        </div>
+    </footer>
+
+    <!-- Load tutorial.js before main.js -->
+    <script src="{{ url_for('static', filename='js/tutorial.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

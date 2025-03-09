@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="trends-dashboard">
+        <h2>Social Media Misinformation Trends</h2>
+
+        <!-- Trend monitoring controls -->
+        <div class="monitoring-controls">
+            <div class="tracking-form">
+                <form onsubmit="addTrackingTerm(event)">
+                    <select name="termType" required>
+                        <option value="keyword">Keyword</option>
+                        <option value="hashtag">Hashtag</option>
+                    </select>
+                    <input type="text" name="termValue" placeholder="Enter term to track" required>
+                    <button type="submit">Add Term</button>
+                </form>
+            </div>
+            <div id="tracking-list" class="tracking-terms"></div>
+        </div>
+
+        <!-- Real-time trend visualization -->
+        <div class="trend-visualization">
+            <div class="chart-container">
+                <h3>Engagement Over Time</h3>
+                <div id="engagement-chart"></div>
+            </div>
+            <div class="chart-container">
+                <h3>Sentiment Analysis</h3>
+                <div id="sentiment-chart"></div>
+            </div>
+        </div>
+
+        <!-- Real-time monitoring grid -->
+        <div class="monitoring-grid">
+            <div class="social-feed">
+                <h3>Live Misinformation Updates</h3>
+                <div id="social-updates" class="social-posts"></div>
+            </div>
+            <div class="trends-panel">
+                <h3>Trend Analysis</h3>
+                <div id="social-trends"></div>
+                <div class="viral-content">
+                    <h4>Viral Misinformation</h4>
+                    <div id="viral-updates"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+    // Initialize monitoring on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeSocialMonitoring();
+        initializeCharts();
+    });
+
+    function initializeCharts() {
+        // Create engagement timeline chart
+        const engagementData = {
+            x: [],
+            y: [],
+            type: 'scatter',
+            mode: 'lines+markers',
+            name: 'Total Engagement'
+        };
+
+        const engagementLayout = {
+            title: 'Engagement Trends',
+            xaxis: { title: 'Time' },
+            yaxis: { title: 'Engagement Level' }
+        };
+
+        Plotly.newPlot('engagement-chart', [engagementData], engagementLayout);
+
+        // Create sentiment distribution chart
+        const sentimentData = {
+            values: [0, 0, 0],
+            labels: ['Positive', 'Neutral', 'Negative'],
+            type: 'pie',
+            hole: 0.4,
+            marker: {
+                colors: ['#28a745', '#ffc107', '#dc3545']
+            }
+        };
+
+        const sentimentLayout = {
+            title: 'Sentiment Distribution',
+            annotations: [{
+                font: { size: 20 },
+                showarrow: false,
+                text: 'Sentiment',
+                y: 0.5,
+                x: 0.5
+            }]
+        };
+
+        Plotly.newPlot('sentiment-chart', [sentimentData], sentimentLayout);
+    }
+
+    function updateCharts(trends) {
+        // Update engagement chart
+        const time = new Date().toLocaleTimeString();
+        const totalEngagement = 
+            trends.engagement_levels.high * 3 + 
+            trends.engagement_levels.medium * 2 + 
+            trends.engagement_levels.low;
+
+        Plotly.extendTraces('engagement-chart', {
+            x: [[time]],
+            y: [[totalEngagement]]
+        }, [0]);
+
+        // Update sentiment chart
+        const sentimentValues = [
+            trends.sentiment_distribution.positive,
+            trends.sentiment_distribution.neutral,
+            trends.sentiment_distribution.negative
+        ];
+
+        Plotly.update('sentiment-chart', {
+            values: [sentimentValues]
+        });
+    }
+
+    // Extend the existing updateTrends function
+    const originalUpdateTrends = updateTrends;
+    updateTrends = function(trends) {
+        originalUpdateTrends(trends);
+        updateCharts(trends);
+        updateViralContent(trends.virality);
+    }
+
+    function updateViralContent(viralContent) {
+        const viralContainer = document.getElementById('viral-updates');
+        if (!viralContainer || !viralContent) return;
+
+        const viralHtml = viralContent.map(content => `
+            <div class="viral-post">
+                <div class="viral-header">
+                    <span class="platform">${content.platform}</span>
+                    <span class="engagement">🔥 ${content.engagement} engagements</span>
+                </div>
+                <div class="viral-content">${content.content}</div>
+            </div>
+        `).join('');
+
+        viralContainer.innerHTML = viralHtml;
+    }
+</script>
+{% endblock %}

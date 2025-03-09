@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TruthLens | AI-Powered Fact-Checking Platform</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/landing_styles.css') }}">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <img src="{{ url_for('static', filename='images/logo_main.png') }}" alt="TruthLens Logo" style="width: 50px; height: auto;">
+          <span style="font-size: 35px; font-weight: 500;">TruthLens</span>
+        </div>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#demo">Demo</a>
+          <a href="#about">About Us</a>
+        </div>
+        <a href="{{ url_for('get_started') }}" class="cta-button">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Your AI Ally in the Fight Against Misinformation!</h1>
+      <p>TruthLens is an AI-powered fact-checking platform that helps you verify claims, detect misinformation, and make informed decisions in the age of information overload.</p>
+      <a href="{{ url_for('get_started') }}" class="cta-button">Try TruthLens Free</a>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Powerful Fact-Checking at Your Fingertips</h2>
+        <p>TruthLens uses advanced AI to help you separate fact from fiction.</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <h3>Real-Time Claim Detection</h3>
+          <p>Extract and analyze key claims from social media posts, news articles, and online content using advanced NLP techniques.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <h3>Multi-Source Verification</h3>
+          <p>Cross-reference claims against trusted fact-checking platforms, government databases, research papers, and verified news sources.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20v-6M6 20V10M18 20V4"></path>
+            </svg>
+          </div>
+          <h3>Credibility Scoring</h3>
+          <p>Get instant credibility scores based on source trustworthiness, cross-verification results, and historical accuracy of the source.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="3" y1="9" x2="21" y2="9"></line>
+              <line x1="9" y1="21" x2="9" y2="9"></line>
+            </svg>
+          </div>
+          <h3>Evidence Dashboard</h3>
+          <p>View side-by-side comparisons of claims versus verified data, with links to sources and visual credibility indicators.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <h3>Claim Timeline Tracking</h3>
+          <p>Track how claims evolve over time to expose manipulated trends and identify the origins of misinformation campaigns.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </div>
+          <h3>Misinformation Alerts</h3>
+          <p>Get notified when viral content is flagged as potentially misleading with our browser extension and social media plugin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <h2>How TruthLens Works</h2>
+        <p>Our powerful AI engine makes fact-checking simple and accessible for everyone.</p>
+      </div>
+      
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Submit Content</h3>
+          <p>Paste a link, upload content, or use our browser extension to analyze any claim.</p>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>AI Analysis</h3>
+          <p>Our AI extracts claims and cross-references them with trusted sources.</p>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Verification</h3>
+          <p>Claims are verified against multiple reliable sources and fact-checking databases.</p>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Get Results</h3>
+          <p>Receive a detailed report with credibility scores, evidence, and sources.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo" id="demo">
+    <div class="container">
+      <div class="demo-container">
+        <div class="demo-content">
+          <div class="section-header" style="text-align: left; margin-bottom: 30px;">
+            <h2>See TruthLens in Action</h2>
+            <p>Watch how TruthLens can help you verify information in seconds.</p>
+          </div>
+          
+          <p>TruthLens is designed to be intuitive and powerful. Our browser extension lets you fact-check content with a single click, while our mobile app keeps you informed on the go.</p>
+          <p>Whether you're a journalist, researcher, educator, or simply someone who values factual information, TruthLens provides the tools you need to navigate today's complex information landscape.</p>
+          
+          <a href="#get-started" class="cta-button" style="display: inline-block; margin-top: 30px;">Try it Yourself</a>
+        </div>
+        
+        <div class="demo-image">
+          <img src="{{ url_for('static', filename='images/demo.png') }}" style="width: 500px; height: auto;">
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-header">
+        <h2>About Us</h2>
+        <p>Meet the team behind TruthLens and our mission to combat misinformation.</p>
+      </div>
+      <center>
+      <div class="demo-image">
+        <img src="{{ url_for('static', filename='images/team.png') }}" style="width: 500px; height: auto;">
+      </div>
+    </center>
+    <br>
+    <br>
+      <div class="about-content">
+        <div class="about-text">
+          <p>Our mission is to empower individuals with the tools they need to make informed decisions based on verified facts rather than misleading claims.</p>
+          <p>We believe in the power of technology to serve truth and transparency, and we're committed to developing solutions that make fact-checking accessible to everyone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+<br>
+<br>
+  <section class="cta" id="get-started">
+    <div class="container">
+      <h2>Start Separating Fact from Fiction Today</h2>
+      <p>Join TruthLens to navigate the information landscape with confidence.</p>
+      
+      <div class="cta-buttons">
+        <a href="{{ url_for('get_started') }}" class="cta-button cta-secondary">Download Browser Extension</a>
+        <a href="{{ url_for('get_started') }}" class="cta-button cta-secondary">Get started</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>TruthLens</h3>
+          <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Empowering users with AI-powered fact-checking to combat misinformation and make informed decisions.</p>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Products</h3>
+          <ul>
+            <li><a href="#">Browser Extension</a></li>
+            <li><a href="#">Chrome Extension</a></li>
+            <li><a href="#">Fact-Check Bot</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Case Studies</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2025 TruthLens. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Select all links with hash (#) references
+      const navLinks = document.querySelectorAll('nav a[href^="#"]');
+      
+      // Add click event listener to each link
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          // Prevent default anchor click behavior
+          e.preventDefault();
+          
+          // Get the target section id
+          const targetId = this.getAttribute('href');
+          
+          // Find the target element
+          const targetSection = document.querySelector(targetId);
+          
+          if (targetSection) {
+            // Scroll to the target section smoothly
+            targetSection.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
